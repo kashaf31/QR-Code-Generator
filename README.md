@@ -27,4 +27,5 @@ This project is made using only **HTML**, **CSS**, and **JavaScript**, without a
 5. Click **"Download QR Code"** to save it as an image.
 
 **Mobile Friendly?**
-This project is fully responsive — so it works smoothly on phones, tablets, and desktops.
+
+This project is fully responsive... so it works smoothly on phones, tablets, and desktops.
