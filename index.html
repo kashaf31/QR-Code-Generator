@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR-Code Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+<p>Enter Text or Url</p>
+<input type="text" placeholder="Text or Url" id="qrtext">
+<div id="imgbox">
+    <img src="" id="qrimage">
+       </div>
+<button onclick="generateqr()"   class="btn" >Generate QR Code</button>
+<button onclick="downloadQR()" id="downloadBtn">Download QR Code</button>
+
+
+     
+
+</div>
+<script>
+let qrimage = document.getElementById("qrimage");
+let qrtext = document.getElementById("qrtext");
+let downloadBtn = document.getElementById("downloadBtn");
+
+function generateqr() {
+  const input = qrtext.value.trim();
+  if (input) {
+    const qrUrl =
+      "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" +
+      encodeURIComponent(input);
+    qrimage.crossOrigin = "anonymous";
+    qrimage.src = qrUrl;
+
+    qrimage.onload = () => {
+      downloadBtn.style.display = "inline-block"; // 👈 Show the button after QR is ready
+    };
+  } else {
+    alert("Please enter text or URL");
+  }
+}
+
+function downloadQR() {
+  if (qrimage.src) {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    canvas.width = qrimage.width;
+    canvas.height = qrimage.height;
+
+    qrimage.onload = () => {
+      context.drawImage(qrimage, 0, 0);
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "qr-code.png";
+      link.click();
+    };
+
+    if (qrimage.complete) {
+      qrimage.onload();
+    }
+  }
+}
+</script>
+<footer>
+  <p>Made by @KSHAF PARVEEN:)</p>
+</footer>
+
+</body>
+
+</html>
